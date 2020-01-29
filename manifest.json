@@ -1,0 +1,19 @@
+{
+	"manifest_version": 2,
+	"name": "Paragraph Select",
+	"version": "1.0.0",
+	"description": "Allows selecting blocks of text by holding control and clicking.",
+	"browser_specific_settings": {
+		"gecko": {
+			"id": "paragraph-select@grim.grim"
+		}
+	},
+	"content_scripts": [
+		{
+			"matches": ["<all_urls>"],
+			"run_at":"document_start",
+			"all_frames": true,
+			"js": ["content_script.js"]
+		}
+	]
+}
