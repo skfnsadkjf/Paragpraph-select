@@ -5,24 +5,31 @@ let volume = 0.55;
 // ==================================-- code --=================================== //
 // Recursively gets the nearest ancestor that is one of the above listed elements.
 const getParagraphElem = ( elem ) => paragraphElems.includes( elem.tagName ) ? elem : getParagraphElem( elem.parentElement );
-const mousedown = ( e ) => {
+const selectParagraph = ( elem ) => {
+	let range = document.createRange();
+	range.selectNodeContents( elem );
+	let selection = window.getSelection();
+	selection.removeAllRanges();
+	selection.addRange( range );
+}
+const click = e => {
 	if ( e.ctrlKey ) {
-		e.preventDefault();
-		e.stopPropagation();
-		let sel = window.getSelection();
-		window.speechSynthesis.cancel();
 		let elem = getParagraphElem( e.target );
-		if ( sel.focusNode !== null && elem == getParagraphElem( sel.focusNode ) ) {
-			let utterance = new SpeechSynthesisUtterance( elem.textContent );
-			utterance.rate = 10;
-			utterance.volume = volume;
-			window.speechSynthesis.speak( utterance );
-		}
-		let range = document.createRange();
-		range.selectNodeContents( elem );
-		let selection = window.getSelection();
-		selection.removeAllRanges();
-		selection.addRange( range );
+		selectParagraph( elem );
 	}
 }
-document.addEventListener( "mousedown" , mousedown , true );
+const contextmenu = e => {
+	window.speechSynthesis.cancel();
+	if ( e.buttons == 1 ) {
+		e.preventDefault();
+		e.stopPropagation();
+		let elem = getParagraphElem( e.target );
+		selectParagraph( elem );
+		let utterance = new SpeechSynthesisUtterance( elem.textContent );
+		utterance.rate = 10;
+		utterance.volume = volume;
+		window.speechSynthesis.speak( utterance );
+	}
+}
+document.addEventListener( "click" , click , true );
+document.addEventListener( "contextmenu" , contextmenu , true );

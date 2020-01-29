@@ -2,4 +2,5 @@
 
 Firefox addon that allows selecting blocks of text by holding control and clicking on text.
 
-Allows control clicking on already selected paragraphs to have text to speech read it aloud.
+Allows holding left mouse button down and right clicking to select and also read aloud the selected text using text to speech. Right clicking without left mouse button down will stop text to speech.
+
