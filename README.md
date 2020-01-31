@@ -1,6 +1,7 @@
 # Paragraph-Select
 
-Firefox addon that allows selecting blocks of text by holding control and clicking on text.
+Firefox addon that allows selecting blocks of text and having text to speech read said text.
 
-Allows holding left mouse button down and right clicking to select and also read aloud the selected text using text to speech. Right clicking without left mouse button down will stop text to speech.
+Control clicking will select text only.
 
+right clicking while left click is held down with select and read text.
