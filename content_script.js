@@ -6,15 +6,15 @@ let volume = 0.55;
 // Recursively gets the nearest ancestor that is one of the above listed elements.
 const getParagraphElem = ( elem ) => paragraphElems.includes( elem.tagName ) ? elem : getParagraphElem( elem.parentElement );
 const selectParagraph = ( elem ) => {
-	let range = document.createRange();
+	const range = document.createRange();
 	range.selectNodeContents( elem );
-	let selection = window.getSelection();
+	const selection = window.getSelection();
 	selection.removeAllRanges();
 	selection.addRange( range );
 }
 const click = e => {
 	if ( e.ctrlKey ) {
-		let elem = getParagraphElem( e.target );
+		const elem = getParagraphElem( e.target );
 		selectParagraph( elem );
 	}
 }
@@ -23,13 +23,15 @@ const contextmenu = e => {
 	if ( e.buttons == 1 ) {
 		e.preventDefault();
 		e.stopPropagation();
-		let elem = getParagraphElem( e.target );
+		const elem = getParagraphElem( e.target );
 		selectParagraph( elem );
-		let utterance = new SpeechSynthesisUtterance( elem.textContent );
+		const utterance = new SpeechSynthesisUtterance( elem.textContent );
 		utterance.rate = 10;
 		utterance.volume = volume;
+		utterance.voice = voice;
 		window.speechSynthesis.speak( utterance );
 	}
 }
+const voice = window.speechSynthesis.getVoices()[0];
 document.addEventListener( "click" , click , true );
 document.addEventListener( "contextmenu" , contextmenu , true );
